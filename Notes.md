@@ -3,7 +3,7 @@
 - npx create-next-app@latest app-name
 
 
-## 01-nextjs-tutorials
+## 01-nextjs-tutorials - used default settings
 √ Would you like to use TypeScript? ... No
 √ Would you like to use ESLint? ... No
 √ Would you like to use Tailwind CSS? ... Yes
