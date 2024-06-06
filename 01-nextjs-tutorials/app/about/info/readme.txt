@@ -1,0 +1,1 @@
+this 'info' folder is left empty without any page.js to test default 404 page provided by Next.js
