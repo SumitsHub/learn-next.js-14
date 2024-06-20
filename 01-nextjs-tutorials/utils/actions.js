@@ -22,17 +22,26 @@ export const createTask = async formData => {
   revalidatePath("/tasks");
 };
 
-export const createTaskCustom = async formData => {
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  const content = formData.get("content");
-  console.log(content);
-  await prisma.task.create({
-    data: {
-      content,
-    },
-  });
+//* NOTE: is receives prevState from useFormState() hook 
+export const createTaskCustom = async (prevState, formData) => {
+  //   await new Promise(resolve => setTimeout(resolve, 2000));
 
-  revalidatePath("/tasks");
+  try {
+    const content = formData.get("content");
+    console.log(content);
+    await prisma.task.create({
+      data: {
+        content,
+      },
+    });
+
+    revalidatePath("/tasks");
+
+    return { message: "Success!" };
+  } catch (error) {
+    console.log(error);
+    return { message: "Error!" };
+  }
 };
 
 export const deleteTask = async formData => {

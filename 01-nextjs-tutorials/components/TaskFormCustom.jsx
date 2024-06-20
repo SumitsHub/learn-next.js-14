@@ -1,6 +1,6 @@
 "use client";
 import { createTaskCustom } from "@/utils/actions";
-import { useFormStatus } from "react-dom";
+import { useFormStatus, useFormState } from "react-dom";
 
 // TODO: why we need to create separate component for using useFormStatus()
 // is it because we are using server actions and useFormStatus is client side hook??
@@ -18,9 +18,14 @@ const SubmitBtn = () => {
   );
 };
 
+const initialFormState = { message: null };
+
 function TaskForm() {
+  const [state, formAction] = useFormState(createTaskCustom, initialFormState);
+
   return (
-    <form action={createTaskCustom}>
+    <form action={formAction}>
+      {state.message ? <p className="mb-2">{state.message}</p> : null}
       <div className="join w-full">
         <input
           type="text"
