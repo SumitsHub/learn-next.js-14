@@ -44,10 +44,10 @@ export const createTaskCustom = async (prevState, formData) => {
 
     revalidatePath("/tasks");
 
-    return { message: "Success!" };
+    return { message: "success" };
   } catch (error) {
     console.log(error);
-    return { message: "Error!" };
+    return { message: "error" };
   }
 };
 

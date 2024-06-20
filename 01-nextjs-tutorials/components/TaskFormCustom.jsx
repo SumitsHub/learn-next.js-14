@@ -1,6 +1,8 @@
 "use client";
 import { createTaskCustom } from "@/utils/actions";
+import { useEffect } from "react";
 import { useFormStatus, useFormState } from "react-dom";
+import toast from "react-hot-toast";
 
 // TODO: why we need to create separate component for using useFormStatus()
 // is it because we are using server actions and useFormStatus is client side hook??
@@ -22,6 +24,11 @@ const initialFormState = { message: null };
 
 function TaskForm() {
   const [state, formAction] = useFormState(createTaskCustom, initialFormState);
+
+  useEffect(() => {
+    if (state.message === "error") toast.error("Failed to create task!");
+    if (state.message === "success") toast.success("Task created!");
+  }, [state]);
 
   return (
     <form action={formAction}>
