@@ -10,3 +10,11 @@
 √ Would you like to use `src/` directory? ... No
 √ Would you like to use App Router? (recommended) ... Yes
 √ Would you like to customize the default import alias (@/*)? ... No
+
+
+### Prisma commands
+1. npx prisma init
+2. npx prisma migrate dev
+3. npx prisma studio
+4. npm prisma db push
+5. npx prisma generate
