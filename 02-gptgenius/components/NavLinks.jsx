@@ -9,7 +9,7 @@ const links = [
 
 const NavLinks = () => {
   return (
-    <ul className="menu  text-base-content">
+    <ul className="menu text-base-content">
       {links.map(link => {
         return (
           <li key={link.href}>
