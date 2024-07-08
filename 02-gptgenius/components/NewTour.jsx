@@ -1,17 +1,28 @@
 "use client";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { generateTourResponse, getExisitingTour } from "@/utils/action";
+import {
+  createNewTour,
+  generateTourResponse,
+  getExistingTour,
+} from "@/utils/action";
 import toast from "react-hot-toast";
 import TourInfo from "./TourInfo";
 const NewTour = () => {
+  const queryClient = useQueryClient();
   const {
     mutate,
     isPending,
     data: tour,
   } = useMutation({
-    mutationFn: async (destination) => {
+    mutationFn: async destination => {
+      // NOTE: Three different function because of server timeout of 10s in Vercel free account
+      const existingTour = await getExistingTour(destination);
+      console.log({ existingTour });
+      if (existingTour) return existingTour;
       const newTour = await generateTourResponse(destination);
       if (newTour) {
+        await createNewTour(newTour);
+        queryClient.invalidateQueries({ queryKey: ["tours"] });
         return newTour;
       }
 
@@ -20,7 +31,7 @@ const NewTour = () => {
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const destination = Object.fromEntries(formData.entries());
@@ -55,9 +66,7 @@ const NewTour = () => {
           </button>
         </div>
       </form>
-      <div className="mt-16">
-        {tour ? <TourInfo tour={tour} /> : null}
-      </div>
+      <div className="mt-16">{tour ? <TourInfo tour={tour} /> : null}</div>
     </>
   );
 };
