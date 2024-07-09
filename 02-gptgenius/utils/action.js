@@ -7,7 +7,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export const generateChatResponse = async chatMessages => {
+export const generateChatResponse = async (chatMessages) => {
   // console.log(chatMessages);
   try {
     const response = await openai.chat.completions.create({
@@ -73,6 +73,39 @@ export const getExistingTour = async ({ city, country }) => {
   });
 };
 
-export const createNewTour = async tour => {
+export const createNewTour = async (tour) => {
   return prisma.tour.create({ data: tour });
+};
+
+export const getAllTours = async (searchTerm) => {
+  if (!searchTerm) {
+    const tours = await prisma.tour.findMany({
+      orderBy: {
+        city: "asc",
+      },
+    });
+
+    return tours;
+  }
+
+  const tours = await prisma.tour.findMany({
+    where: {
+      OR: [
+        {
+          city: {
+            contains: searchTerm,
+          },
+        },
+        {
+          country: {
+            contains: searchTerm,
+          },
+        },
+      ],
+    },
+    orderBy: {
+      city: "asc",
+    },
+  });
+  return tours;
 };
