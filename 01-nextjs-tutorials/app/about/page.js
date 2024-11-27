@@ -10,3 +10,5 @@ const AboutPage = () => {
   )
 }
 export default AboutPage
+
+// NOTE: this page won't get rendered, redirecting to '/' from middleware

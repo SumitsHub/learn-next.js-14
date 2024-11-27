@@ -1399,8 +1399,8 @@ TaskFormCustom.jsx
 
 import { createTaskCustom } from '@/utils/actions';
 import { useFormStatus, useFormState } from 'react-dom';
-// The useFormStatus Hook provides status information of the last form submission.
-// useFormState is a Hook that allows you to update state based on the result of a form action.
+// The useFormStatus Hook provides status information of the 'last' form submission.
+// 'useFormState' is a Hook that allows you to update state based on the result of a form action.
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -1656,7 +1656,7 @@ const DeleteForm = ({ id }) => {
 export default DeleteForm;
 ```
 
-## Route Handlers
+## Route Handlers - API
 
 - install Thunder Client
 
@@ -1665,7 +1665,7 @@ Route Handlers allow you to create custom request handlers for a given route usi
 - in app create folder "api"
 - in there create folder "tasks" with route.js file
 
-The following HTTP methods are supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS. If an unsupported method is called, Next.js will return a 405 Method Not Allowed response.
+The following HTTP methods are supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS. If an unsupported method is called, Next.js will return a '405' Method Not Allowed response.
 
 In addition to supporting native Request and Response. Next.js extends them with NextRequest and NextResponse to provide convenient helpers for advanced use cases.
 
